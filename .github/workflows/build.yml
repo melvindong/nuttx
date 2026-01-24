@@ -101,7 +101,7 @@ jobs:
           repository: melvindong/nuttx
           ref: ${{ steps.gittargets.outputs.os_ref }}
           path: sources/nuttx
-          fetch-depth: 1
+          fetch-depth: 0
       - name: Checkout nuttx repo tags
         run: git -C sources/nuttx fetch --tags
 
@@ -111,7 +111,7 @@ jobs:
           repository: melvindong/nuttx-apps
           ref: ${{ steps.gittargets.outputs.apps_ref }}
           path: sources/apps
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Tar sources
         run: tar zcf sources.tar.gz sources
