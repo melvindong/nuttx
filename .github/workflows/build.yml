@@ -74,13 +74,13 @@ jobs:
             # Determine the repo and leave that unset to use the normal checkout behavior
             # of using the merge commit instead of HEAD
             case $GITHUB_REPOSITORY in
-              "apache/nuttx")
+              "melvindong/nuttx")
                 # OS
                 echo "Triggered by change in OS"
                 APPS_REF=$REF_NAME
                 ;;
 
-              "apache/nuttx-apps" )
+              "melvindong/nuttx-apps" )
                 # APPS
                 OS_REF=$REF_NAME
                 echo "Triggered by change in APPS"
@@ -98,7 +98,7 @@ jobs:
       - name: Checkout nuttx repo
         uses: actions/checkout@v6
         with:
-          repository: apache/nuttx
+          repository: melvindong/nuttx
           ref: ${{ steps.gittargets.outputs.os_ref }}
           path: sources/nuttx
           fetch-depth: 1
@@ -108,7 +108,7 @@ jobs:
       - name: Checkout apps repo
         uses: actions/checkout@v6
         with:
-          repository: apache/nuttx-apps
+          repository: melvindong/nuttx-apps
           ref: ${{ steps.gittargets.outputs.apps_ref }}
           path: sources/apps
           fetch-depth: 1
@@ -124,7 +124,7 @@ jobs:
 
   # Select the Linux Builds based on PR Arch Label
   Linux-Arch:
-    uses: apache/nuttx/.github/workflows/arch.yml@master
+    uses: melvindong/nuttx/.github/workflows/arch.yml@master
     needs: Fetch-Source
     with:
       os: Linux
@@ -216,6 +216,8 @@ jobs:
           BLOBDIR: /tools/blobs
         with:
           run: |
+            echo "ls -l $BLOBDIR"
+            ls -l $BLOBDIR
             echo "::add-matcher::sources/nuttx/.github/gcc.json"
             export ARTIFACTDIR=`pwd`/buildartifacts
             export NTFCDIR=/github/workspace/nuttx-ntfc
@@ -287,7 +289,7 @@ jobs:
 
   # Select the macOS Builds based on PR Arch Label
   macOS-Arch:
-    uses: apache/nuttx/.github/workflows/arch.yml@master
+    uses: melvindong/nuttx/.github/workflows/arch.yml@master
     needs: Fetch-Source
     with:
       os: macOS
@@ -347,7 +349,7 @@ jobs:
 
   # Select the msys2 Builds based on PR Arch Label
   msys2-Arch:
-    uses: apache/nuttx/.github/workflows/arch.yml@master
+    uses: melvindong/nuttx/.github/workflows/arch.yml@master
     needs: Fetch-Source
     with:
       os: msys2
@@ -430,7 +432,7 @@ jobs:
 
   # Select the msvc Builds based on PR Arch Label
   msvc-Arch:
-    uses: apache/nuttx/.github/workflows/arch.yml@master
+    uses: melvindong/nuttx/.github/workflows/arch.yml@master
     needs: Fetch-Source
     with:
       os: msvc
