@@ -216,6 +216,8 @@ jobs:
           BLOBDIR: /tools/blobs
         with:
           run: |
+            sudo apt-get update
+            sudo apt-get install -y flex bison gperf gettext texinfo libncurses5-dev libncursesw5-dev
             echo "ls -l $BLOBDIR"
             ls -l $BLOBDIR
             echo "::add-matcher::sources/nuttx/.github/gcc.json"
@@ -230,6 +232,8 @@ jobs:
                 ( sleep 7200 ; echo Killing pytest after timeout... ; pkill -f pytest )&
                 ./cibuild.sh -i -c -A -N -R -S testlist/${{matrix.boards}}.dat
             fi
+            echo "ls -l $BLOBDIR"
+            ls -l $BLOBDIR
 
       - name: Post-build Disk Space
         if: always()
